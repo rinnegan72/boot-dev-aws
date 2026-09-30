@@ -1,0 +1,7 @@
+# .tfstate files
+*.tfstate.bak
+*.tfstate.backup
+terraform.tfstate.*
+# tofu plan outputs
+*tfplan
+*.tfplan
