@@ -28,3 +28,15 @@ output "key_secret" {
   value     = aws_iam_access_key.bootdev-user.secret
   sensitive = true
 }
+
+resource "aws_vpc" "patientping" {
+  cidr_block       = "10.0.0.0/22"
+
+  tags = {
+    Name = "patientping"
+  }
+}
+
+output "vpc_id" {
+  value = aws_vpc.patientping.id
+}
