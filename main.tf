@@ -79,3 +79,12 @@ resource "aws_subnet" "patientping-public-b" {
     Name = "patientping-public-b"
   }
 }
+
+
+resource "aws_internet_gateway" "patientping-igw" {
+  vpc_id = aws_vpc.patientping.id
+
+  tags = {
+    Name = "patientping-igw"
+  }
+}
