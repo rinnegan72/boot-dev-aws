@@ -112,3 +112,21 @@ resource "aws_route_table_association" "patientping-public-b-rt-association" {
   subnet_id      = aws_subnet.patientping-public-b.id
   route_table_id = aws_route_table.patientping-public-subnet-route-table.id
 }
+
+
+resource "aws_route_table" "patientping-private-subnet-route-table" {
+  vpc_id = aws_vpc.patientping.id
+
+  tags = {
+    Name = "patientping-private-rt"
+  }
+}
+
+resource "aws_route_table_association" "patientping-private-a-rt-association" {
+  subnet_id      = aws_subnet.patientping-private-a.id
+  route_table_id = aws_route_table.patientping-private-subnet-route-table.id
+}
+resource "aws_route_table_association" "patientping-private-b-rt-association" {
+  subnet_id      = aws_subnet.patientping-private-b.id
+  route_table_id = aws_route_table.patientping-private-subnet-route-table.id
+}
