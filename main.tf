@@ -88,3 +88,27 @@ resource "aws_internet_gateway" "patientping-igw" {
     Name = "patientping-igw"
   }
 }
+
+
+resource "aws_route_table" "patientping-public-subnet-route-table" {
+  vpc_id = aws_vpc.patientping.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.patientping-igw.id
+  }
+
+  tags = {
+    Name = "patientping-public-rt"
+  }
+}
+
+
+resource "aws_route_table_association" "patientping-public-a-rt-association" {
+  subnet_id      = aws_subnet.patientping-public-a.id
+  route_table_id = aws_route_table.patientping-public-subnet-route-table.id
+}
+resource "aws_route_table_association" "patientping-public-b-rt-association" {
+  subnet_id      = aws_subnet.patientping-public-b.id
+  route_table_id = aws_route_table.patientping-public-subnet-route-table.id
+}
