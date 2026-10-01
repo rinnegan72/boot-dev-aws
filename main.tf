@@ -130,3 +130,9 @@ resource "aws_route_table_association" "patientping-private-b-rt-association" {
   subnet_id      = aws_subnet.patientping-private-b.id
   route_table_id = aws_route_table.patientping-private-subnet-route-table.id
 }
+
+
+resource "awscc_ec2_key_pair" "patentping-key" {
+  key_name            = "patentping-key"
+  public_key_material = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILzPx8fUgaFFbwTzNxGhErwlUo9ksE1iU4vbwB9rCCl3 patentping-key"
+}
