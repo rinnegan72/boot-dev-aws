@@ -1,6 +1,6 @@
 # Configure the AWS provider
 provider "aws" {
-  region = "us-east-1"
+  region  = "us-east-1"
   profile = "floci"
 }
 
@@ -30,7 +30,7 @@ output "key_secret" {
 }
 
 resource "aws_vpc" "patientping" {
-  cidr_block       = "10.0.0.0/22"
+  cidr_block = "10.0.0.0/22"
 
   tags = {
     Name = "patientping"
@@ -42,8 +42,8 @@ output "vpc_id" {
 }
 
 resource "aws_subnet" "patientping-private-a" {
-  vpc_id     = aws_vpc.patientping.id
-  cidr_block = "10.0.0.0/24"
+  vpc_id            = aws_vpc.patientping.id
+  cidr_block        = "10.0.0.0/24"
   availability_zone = "us-east-1a"
   tags = {
     Name = "patientping-private-a"
@@ -52,8 +52,8 @@ resource "aws_subnet" "patientping-private-a" {
 
 
 resource "aws_subnet" "patientping-private-b" {
-  vpc_id     = aws_vpc.patientping.id
-  cidr_block = "10.0.1.0/24"
+  vpc_id            = aws_vpc.patientping.id
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1b"
   tags = {
     Name = "patientping-private-b"
@@ -62,8 +62,8 @@ resource "aws_subnet" "patientping-private-b" {
 
 
 resource "aws_subnet" "patientping-public-a" {
-  vpc_id     = aws_vpc.patientping.id
-  cidr_block = "10.0.2.0/24"
+  vpc_id            = aws_vpc.patientping.id
+  cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-1a"
   tags = {
     Name = "patientping-public-a"
@@ -72,8 +72,8 @@ resource "aws_subnet" "patientping-public-a" {
 
 
 resource "aws_subnet" "patientping-public-b" {
-  vpc_id     = aws_vpc.patientping.id
-  cidr_block = "10.0.3.0/24"
+  vpc_id            = aws_vpc.patientping.id
+  cidr_block        = "10.0.3.0/24"
   availability_zone = "us-east-1b"
   tags = {
     Name = "patientping-public-b"
@@ -132,7 +132,7 @@ resource "aws_route_table_association" "patientping-private-b-rt-association" {
 }
 
 
-resource "awscc_ec2_key_pair" "patentping-key" {
-  key_name            = "patentping-key"
-  public_key_material = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILzPx8fUgaFFbwTzNxGhErwlUo9ksE1iU4vbwB9rCCl3 patentping-key"
+resource "aws_key_pair" "patientping-key" {
+  key_name   = "patientping-key"
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILzPx8fUgaFFbwTzNxGhErwlUo9ksE1iU4vbwB9rCCl3 patentping-key"
 }
