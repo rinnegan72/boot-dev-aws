@@ -1,4 +1,12 @@
 # Configure the AWS provider
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
 provider "aws" {
   region  = "us-east-1"
   profile = "floci"
@@ -135,4 +143,22 @@ resource "aws_route_table_association" "patientping-private-b-rt-association" {
 resource "aws_key_pair" "patientping-key" {
   key_name   = "patientping-key"
   public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILzPx8fUgaFFbwTzNxGhErwlUo9ksE1iU4vbwB9rCCl3 patentping-key"
+}
+
+
+resource "aws_security_group" "patientping-empty" {
+  name   = "patientping-empty"
+  vpc_id = aws_vpc.patientping.id
+}
+
+
+resource "aws_instance" "patientping-instance" {
+  instance_type          = "t3.micro"
+  ami                    = "ami-0abcdef1234567891"
+  subnet_id              = aws_subnet.patientping-public-a.id
+  vpc_security_group_ids = [aws_security_group.patientping-empty.id]
+
+  tags = {
+    Name = "patientping-web"
+  }
 }
