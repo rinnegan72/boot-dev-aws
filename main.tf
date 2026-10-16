@@ -152,6 +152,12 @@ resource "aws_security_group" "patientping-empty" {
 }
 
 
+resource "aws_eip" "patientping-instance-ip" {
+  instance = aws_instance.patientping-instance.id
+  domain   = "vpc"
+  public_ipv4_pool = "amazon"
+  network_border_group = "us-east-1"
+}
 resource "aws_instance" "patientping-instance" {
   instance_type          = "t3.micro"
   ami                    = "ami-0abcdef1234567891"
